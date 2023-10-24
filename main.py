@@ -71,6 +71,11 @@ def main():
     from crazy_functional import get_crazy_functions, get_multiplex_button_functions
     DEFAULT_FN_GROUPS = get_conf('DEFAULT_FN_GROUPS')
     plugins = get_crazy_functions()
+    try:
+        from personal_functional import get_personal_functions
+        plugins.update(get_personal_functions())
+    except Exception as e:
+        raise e
     all_plugin_groups = list(set([g for _, plugin in plugins.items() for g in plugin['Group'].split('|')]))
     match_group = lambda tags, groups: any([g in groups for g in tags.split('|')])
 
