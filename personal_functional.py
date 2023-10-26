@@ -4,6 +4,7 @@ PREFIX = "自定义-"
 
 def get_personal_functions():
     from personal_functions.学术文本翻译为中文 import 学术文本翻译为中文
+    from personal_functions.学术文本英文转换 import 学术文本英文转换
 
     function_plugins = {
         PREFIX + "学术文本翻译为中文": {
@@ -12,6 +13,13 @@ def get_personal_functions():
             "AsButton": True,
             "Info": "自定义：学术文本翻译为中文",
             "Function": HotReload(学术文本翻译为中文)
+        },
+        PREFIX + "学术文本英文转换": {
+            "Group": "学术",
+            "Color": "stop",
+            "AsButton": True,
+            "Info": "自定义：学术文本英文转换",
+            "Function": HotReload(学术文本英文转换)
         }
     }
 
