@@ -5,6 +5,8 @@ PREFIX = "自定义-"
 def get_personal_functions():
     from personal_functions.学术文本翻译为中文 import 学术文本翻译为中文
     from personal_functions.学术文本英文转换 import 学术文本英文转换
+    from personal_functions.review文本转换 import review文本转换
+    from personal_functions.rebuttal文本转换 import rebuttal文本转换
 
     function_plugins = {
         PREFIX + "学术文本翻译为中文": {
@@ -20,6 +22,20 @@ def get_personal_functions():
             "AsButton": True,
             "Info": "自定义：学术文本英文转换",
             "Function": HotReload(学术文本英文转换)
+        },
+        PREFIX + "review文本转换": {
+            "Group": "学术",
+            "Color": "stop",
+            "AsButton": True,
+            "Info": "自定义：review文本转换",
+            "Function": HotReload(review文本转换)
+        },
+        PREFIX + "rebuttal文本转换": {
+            "Group": "学术",
+            "Color": "stop",
+            "AsButton": True,
+            "Info": "自定义：rebuttal文本转换",
+            "Function": HotReload(rebuttal文本转换)
         }
     }
 
