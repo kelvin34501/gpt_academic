@@ -151,7 +151,7 @@ Latex segmentation with a binary mask (PRESERVE=0, TRANSFORM=1)
 
 
 def set_forbidden_text(text, mask, pattern, flags=0):
-    """
+    r"""
     Add a preserve text area in this paper
     e.g. with pattern = r"\\begin\{algorithm\}(.*?)\\end\{algorithm\}"
     you can mask out (mask = PRESERVE so that text become untouchable for GPT)
@@ -166,7 +166,7 @@ def set_forbidden_text(text, mask, pattern, flags=0):
 
 
 def reverse_forbidden_text(text, mask, pattern, flags=0, forbid_wrapper=True):
-    """
+    r"""
     Move area out of preserve area (make text editable for GPT)
     count the number of the braces so as to catch compelete text area.
     e.g.
@@ -186,7 +186,7 @@ def reverse_forbidden_text(text, mask, pattern, flags=0, forbid_wrapper=True):
 
 
 def set_forbidden_text_careful_brace(text, mask, pattern, flags=0):
-    """
+    r"""
     Add a preserve text area in this paper (text become untouchable for GPT).
     count the number of the braces so as to catch compelete text area.
     e.g.
@@ -212,7 +212,7 @@ def set_forbidden_text_careful_brace(text, mask, pattern, flags=0):
 def reverse_forbidden_text_careful_brace(
     text, mask, pattern, flags=0, forbid_wrapper=True
 ):
-    """
+    r"""
     Move area out of preserve area (make text editable for GPT)
     count the number of the braces so as to catch compelete text area.
     e.g.
@@ -239,7 +239,7 @@ def reverse_forbidden_text_careful_brace(
 
 
 def set_forbidden_text_begin_end(text, mask, pattern, flags=0, limit_n_lines=42):
-    """
+    r"""
     Find all \begin{} ... \end{} text block that with less than limit_n_lines lines.
     Add it to preserve area
     """
@@ -548,7 +548,7 @@ def fix_content(final_tex, node_string):
         final_tex = node_string  # 出问题了，还原原文
     if node_string.count("\\begin") != final_tex.count("\\begin"):
         final_tex = node_string  # 出问题了，还原原文
-    if node_string.count("\_") > 0 and node_string.count("\_") > final_tex.count("\_"):
+    if node_string.count(r"\_") > 0 and node_string.count(r"\_") > final_tex.count(r"\_"):
         # walk and replace any _ without \
         final_tex = re.sub(r"(?<!\\)_", "\\_", final_tex)
 
@@ -596,7 +596,12 @@ def compile_latex_with_timeout(command, cwd, timeout=60):
     import subprocess
 
     process = subprocess.Popen(
-        command, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE, cwd=cwd
+        command, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE, cwd=cwd,
+        env={
+            **os.environ,
+            "OPENTYPEFONTS": "~/.fonts/s/",
+            "TTFONTS": "~/.fonts/s/",
+        },
     )
     try:
         stdout, stderr = process.communicate(timeout=timeout)
