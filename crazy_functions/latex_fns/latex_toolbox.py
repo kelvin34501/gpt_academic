@@ -599,8 +599,8 @@ def compile_latex_with_timeout(command, cwd, timeout=60):
         command, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE, cwd=cwd,
         env={
             **os.environ,
-            "OPENTYPEFONTS": "~/.fonts/s/",
-            "TTFONTS": "~/.fonts/s/",
+            "OPENTYPEFONTS": "~/.fonts//",
+            "TTFONTS": "~/.fonts//",
         },
     )
     try:
