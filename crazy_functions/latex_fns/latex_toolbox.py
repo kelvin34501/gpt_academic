@@ -318,6 +318,13 @@ def find_main_tex_file(file_manifest, mode):
         expected_words = ["\\input", "\\ref", "\\cite"]
         for texf in canidates:
             canidates_score.append(0)
+            
+            last_part = os.path.basename(texf)
+            if "supp" in last_part or "appendix" in last_part:
+                canidates_score[-1] -= 5
+            if "main" in last_part:
+                canidates_score[-1] += 4
+
             with open(texf, "r", encoding="utf8", errors="ignore") as f:
                 file_content = f.read()
                 file_content = rm_comments(file_content)
